@@ -19,9 +19,11 @@ const music = async function (req, res) {
 };
 const play = async function (req, res) {
   const { Album, song } = req.body;
-  const getSong = await musicModel.toPlay(Album, song);
-  console.log(getSong);
-  res.status(200).json(getSong);
+  const { basePath } = await musicModel.toPlay(Album, song);
+
+  console.log(basePath);
+
+  res.status(200).json(basePath);
 };
 
 module.exports = { music, play };

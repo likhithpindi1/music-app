@@ -1,11 +1,11 @@
 require("../DB/connection");
 const player = require("sound-play");
+// var player = require("play-sound")((opts = {}));
 const fs = require("fs");
 
 const path = require("path");
 
 const mongoose = require("mongoose");
-const { time, Console } = require("console");
 
 // music data
 const musicSchema = mongoose.Schema({
@@ -23,8 +23,6 @@ musicSchema.statics.store = async function () {
 
     const myAlbums = fs.readdirSync(currentsong);
 
-    let s = "";
-
     let mySongs = [];
 
     for (let i = 0; i < myAlbums.length; i++) {
@@ -41,7 +39,6 @@ musicSchema.statics.store = async function () {
 };
 musicSchema.statics.toPlay = async function (Album, song) {
   let find = await musicModel.findOne({ Album });
-  console.log(find.songs);
 
   const currentSong = find.songs.filter((item) => {
     return item === song;
@@ -52,8 +49,11 @@ musicSchema.statics.toPlay = async function (Album, song) {
     `../utilities/Albums/${Album}/${song}`
   );
 
-  player.play(currentpath);
-  return { song: currentSong };
+  // player.play(currentpath);
+  return {
+    song: currentpath,
+    basePath: `http://localhost:3000/api/v1/songs/${Album}/${song}`,
+  };
 };
 
 const musicModel = new mongoose.model("play", musicSchema);
