@@ -40,7 +40,7 @@ musicSchema.statics.store = async function () {
 musicSchema.statics.toPlay = async function (Album, song) {
   let find = await musicModel.findOne({ Album });
 
-  const currentSong = find.songs.filter((item) => {
+  const currentSong = find.songs.find((item) => {
     return item === song;
   });
 
@@ -60,3 +60,14 @@ const musicModel = new mongoose.model("play", musicSchema);
 //end of music data
 
 module.exports = { musicModel };
+
+// Celebration of Vennela.mp3
+// Chamkeela Angeelesi.mp3
+// Chithu.mp3
+// Cricket Rap.mp3
+// Dhoom Dhaam Dhosthaan.mp3
+// Ee Dharani.mp3
+// Monna Badilo.mp3
+// Oh Ammalaalo Ammalaalo.mp3
+// Ori Vaari.mp3
+// Silk Bar.mp3
